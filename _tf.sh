@@ -3,6 +3,8 @@
 
 #############################################################################################################################################
 #* Terraform management tools using terrform-cli ( * --  made by schan -- * )
+# VER: 1st-beta v0.7.1
+# git tag v0.7.1
 #  _________  _______   ________  ________  ________  ________ ________  ________  _____ ______                  ________  ___       ___     
 # |\___   ___\\  ___ \ |\   __  \|\   __  \|\   __  \|\  _____\\   __  \|\   __  \|\   _ \  _   \               |\   ____\|\  \     |\  \    
 # \|___ \  \_\ \   __/|\ \  \|\  \ \  \|\  \ \  \|\  \ \  \__/\ \  \|\  \ \  \|\  \ \  \\\__\ \  \  ____________\ \  \___|\ \  \    \ \  \   
@@ -31,7 +33,7 @@
 ENV_PATH_="." ; ENV_DIR_="env" ; AFTER_INIT_ENV_FLAG=false ;
 ACTION="" ; ENV_WKS="" ; backndfile_flag="bknd" ; mtch_flag=false ; valck_flag=false ; 
 
-JOBS_ACTION=( "init" "backnd_init" "plan" "apply" "destroy"  "validate" "other" )
+JOBS_ACTION=( "init" "backnd_init" "plan" "apply" "destroy" "validate" "new-wks" "mv-wks" "del-wks" "import" "other" )
 key_list=(${JOBS_ACTION[@]}) ; DEFAULT_JOB=${JOBS_ACTION[2]} ;
 
 func_list=(); num_sfx=1 ;
@@ -269,7 +271,87 @@ func_6()
 
 func_7()
 {
-  ### key : other , value : func_7 ### 
+  ### key : new-wks , value : func_7 ### 
+  # echo " ### $@ ### "
+  # echo " ${env_wk} "; echo " new-wks testing. BYE~ "; exit;
+  newwk=$1
+  [[ "${newwk}" != "" ]] && { terraform workspace new ${newwk} ;  }
+
+  while [[ "${newwk}" == "" ]]; do echo -n "
+############## NEW Terrform WORKSPACE ########################################
+Tell me the new Terrform WORKSPACE you want ~!  :
+
+############# REFER to Current WORKSPACE  ####################################
+$( terraform workspace list ; )
+
+If NO input, asking repeat ... !!! 
+reply-input >>>  "
+    read newwk
+    [[ "${newwk}" != "" ]] && { terraform workspace new ${newwk} ;  }
+  done
+
+  echo "########################"
+  terraform workspace list ; newwk="" ;
+}
+
+func_8()
+{
+  ### key : mv-wks , value : func_8 ### 
+  # echo " ### $@ ### "
+  # echo " ${env_wk} "; echo " mv-wks testing. BYE~ "; exit;
+  mvwk=$1
+  [[ "${mvwk}" != "" ]] && { terraform workspace select ${mvwk} ;  }
+
+  while [[ "${mvwk}" == "" ]]; do echo -n "
+############## Switching Terrform WORKSPACE ##################################
+Tell me the Terrform WORKSPACE to Switch ~!  :
+
+############# REFER to Current WORKSPACE  ####################################
+$( terraform workspace list ; )
+
+If NO input, asking repeat ... !!! 
+reply-input >>>  "
+    read mvwk
+    [[ "${mvwk}" != "" ]] && { terraform workspace select ${mvwk} ;  }
+  done
+
+  echo "########################"
+  terraform workspace list ; mvwk="" ;
+}
+
+func_9()
+{
+  ### key : del-wks , value : func_9 ### 
+  # echo " Not Defined this ACTION YET~. BYE~ "; exit;
+  delwk=$1
+  [[ "${delwk}" != "" ]] && { terraform workspace delete ${delwk} ;  }
+
+  while [[ "${delwk}" == "" ]]; do echo -n "
+############## Terrform WORKSPACE to DELETE ##################################
+Tell me the Terrform WORKSPACE to Delete ~!  :
+
+############# REFER to Current WORKSPACE  ####################################
+$( terraform workspace list ; )
+
+If NO input, asking repeat ... !!! 
+reply-input >>>  "
+    read delwk
+    [[ "${delwk}" != "" ]] && { terraform workspace delete ${delwk} ;  }
+  done
+
+  echo "########################"
+  terraform workspace list ; delwk="" ;
+}
+
+func_10()
+{
+  ### key : import , value : func_10 ### 
+  echo " Not Defined this ACTION YET~. BYE~ "; exit;
+}
+
+func_11()
+{
+  ### key : other , value : func_11 ### 
   echo " Not Defined this ACTION YET~. BYE~ "; exit;
 }
 
@@ -298,6 +380,9 @@ func_commonCMD()
 [[ $# == 0 ]] && { env_wkchk; asking_env; asking_job; dojobs "${ACTION}" ; }
 [[ $1 == "validate" ]] && { valck_flag=true; $(echo "${action_funcmap[${1}]}"); exit ; } 
 [[ $1 == "init" ]] && { env_wkchk; $(echo "${action_funcmap[${1}]}") ; exit ; } 
+[[ $1 == "new-wks" ]] && { prechk; $(echo "${action_funcmap[${1}]}") $2 ; exit ; } 
+[[ $1 == "mv-wks" ]] && { prechk; $(echo "${action_funcmap[${1}]}") $2 ; exit ; } 
+[[ $1 == "del-wks" ]] && { prechk; $(echo "${action_funcmap[${1}]}") $2 ; exit ; } 
 [[ $# != 0 ]] && { act_vck "$@" ; env_wkchk; asking_env ; dojobs "$@"; }
 
 ########################## END #############################
