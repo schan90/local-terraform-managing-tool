@@ -3,8 +3,8 @@
 
 #############################################################################################################################################
 #* Terraform management tools using terrform-cli ( * --  made by schan -- * )
-# VER: 1st-beta v0.7.6
-# git tag v0.7.6 / git push origin schan
+# VER: 1st-beta v0.7.5
+# git tag v0.7.5 / git push origin schan
 #  _________  _______   ________  ________  ________  ________ ________  ________  _____ ______                  ________  ___       ___     
 # |\___   ___\\  ___ \ |\   __  \|\   __  \|\   __  \|\  _____\\   __  \|\   __  \|\   _ \  _   \               |\   ____\|\  \     |\  \    
 # \|___ \  \_\ \   __/|\ \  \|\  \ \  \|\  \ \  \|\  \ \  \__/\ \  \|\  \ \  \|\  \ \  \\\__\ \  \  ____________\ \  \___|\ \  \    \ \  \   
@@ -34,7 +34,7 @@ ENV_PATH_="." ; ENV_DIR_="env" ; backndfile_kyword="bknd" ;
 AFTER_INIT_ENV_FLAG=false ; mtch_flag=false ; valck_flag=false ; bkint_flag=false ; askjob_flag=false ;
 ACTION="" ; ENV_WKS="" ;  
 
-JOBS_ACTION=( "init" "backnd-init" "plan" "apply" "destroy" "validate" "new-wks" "mv-wks" "del-wks" "import" "state-list" "other" )
+JOBS_ACTION=( "init" "backnd-init" "plan" "apply" "destroy" "validate" "new-wks" "mv-wks" "del-wks" "import" "other" )
 key_list=(${JOBS_ACTION[@]}) ; DEFAULT_JOB=${JOBS_ACTION[2]} ;
 
 func_list=(); num_sfx=1 ;
@@ -338,13 +338,7 @@ func_10()
 
 func_11()
 {
-  ### key : state-list , value : func_11 ### 
-  echo " Not Defined this ACTION YET~. BYE~ "; exit;
-}
-
-func_12()
-{
-  ### key : other , value : func_12 ### 
+  ### key : other , value : func_11 ### 
   echo " Not Defined this ACTION YET~. BYE~ "; exit;
 }
 
@@ -398,7 +392,6 @@ reply-action >>> "
 [[ ${ACTION} == "new-wks" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") $2 ; exit ; } 
 [[ ${ACTION} == "mv-wks" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") $2 ; exit ; } 
 [[ ${ACTION} == "del-wks" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") $2 ; exit ; } 
-[[ ${ACTION} == "state-list" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") ; exit ; } 
 [[ $# != 0 ]] && { env_wkchk; act_vck "$@" ; asking_env ; dojobs "$@"; }
 
 # asking_job()
