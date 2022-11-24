@@ -10,9 +10,11 @@
 PRE-REQUIRED 
 > environment ( 범용 리눅스 환경 : amazon-linux2 기준 )
 
-bash --version 4.x
-sed --version 4.x (gnu-sed)
-aws --version(aws-cli) 2.x ( V2  aws profile 환경변수 활용)
+>> bash --version 4.x
+
+>> sed --version 4.x (gnu-sed)
+
+>> aws --version(aws-cli) 2.x ( V2  aws profile 환경변수 활용)
 
 ===
 Test 환경 >
