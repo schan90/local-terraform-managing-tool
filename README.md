@@ -30,8 +30,13 @@ Test 환경 >
 #### ./_tf.sh
  > arg 없을 경우 단계별 문답으로 수행
 
-#### ./_tf.sh validat행
+#### ./_tf.sh validate
 #### ./_tf.sh init
 #### ./_tf.sh plan
 #### ./_tf.sh apply 
 #### ./_tf.sh deploy
+
+
+![terr-cli-cap0](https://user-images.githubusercontent.com/6235318/203731740-adb9642f-2d93-4767-970e-2db8c8394118.png)
+
+
