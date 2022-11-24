@@ -383,8 +383,13 @@ func_commonCMD()
 
 ############# ? sub-main ###################################
 ## ? 코드 실행시 입력되는 인자에 따라 아래와 같이 코드 실행 ( argment 가 없는 경우 단계별 대화 문답 )
+# ACTION=$1 ;
 
-ACTION=$1 ;
+ACTION=$(echo "${@:1}"|cut -d ' ' -f1)
+ACTION_opt1=$(echo "${@:2}"|cut -d ' ' -f1)
+ACTION_opt2=$(echo "${@:3}"|cut -d ' ' -f1)
+# echo "${ACTION_opt1}" ;
+
 [[ $# == 0 ]] && { env_wkchk; askjob_flag=true ; }
 
 [[ ${askjob_flag} == true  ]] && {
