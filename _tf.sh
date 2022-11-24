@@ -3,8 +3,8 @@
 
 #############################################################################################################################################
 #* Terraform management tools using terrform-cli ( * --  made by schan -- * )
-# VER: 1st-beta v0.7.6
-# git tag v0.7.6 / git push origin schan
+# VER: 1st-beta v0.8.9
+# git tag v0.8.9 / git push origin schan
 #  _________  _______   ________  ________  ________  ________ ________  ________  _____ ______                  ________  ___       ___     
 # |\___   ___\\  ___ \ |\   __  \|\   __  \|\   __  \|\  _____\\   __  \|\   __  \|\   _ \  _   \               |\   ____\|\  \     |\  \    
 # \|___ \  \_\ \   __/|\ \  \|\  \ \  \|\  \ \  \|\  \ \  \__/\ \  \|\  \ \  \|\  \ \  \\\__\ \  \  ____________\ \  \___|\ \  \    \ \  \   
@@ -30,20 +30,29 @@
 #   - amazon-linux2 
 #
 ####################### init for ACTION-FUNC-MAP ##########################
-ENV_PATH_="." ; ENV_DIR_="env" ; backndfile_kyword="bknd" ;
-AFTER_INIT_ENV_FLAG=false ; mtch_flag=false ; valck_flag=false ; bkint_flag=false ; askjob_flag=false ;
-ACTION="" ; ENV_WKS="" ;  
+## ? tfvars 데이터파일 경로 및 grep 키워드 초기화 
+ENV_PATH_="." ; ENV_DIR_="env" ; vardata_kyword=".tfvars" ; backndfile_kyword="bknd" ;
 
+## ? bool flag 모드, 컨디션 스위치 초기화 
+AFTER_INIT_ENV_FLAG=false ; mtch_flag=false ; valck_flag=false ; bkint_flag=false ; askjob_flag=false ;
+
+## ? terrform-cli 액션 초기화 , terrform workspace 초기화
+ACTION="" ; ENV_WKS="" ; 
+
+## ? terrform 액션 리스트 정의 및 디폴트 액션 설정 
 JOBS_ACTION=( "init" "backnd-init" "plan" "apply" "destroy" "validate" "new-wks" "mv-wks" "del-wks" "import" "state-list" "other" )
 key_list=(${JOBS_ACTION[@]}) ; DEFAULT_JOB=${JOBS_ACTION[2]} ;
 
+## ? terrform 액션 맵핑 함수 리스트 초기화, 함수명_일련번호 변수초기화
 func_list=(); num_sfx=1 ;
+
+##############################################################
+## ? terrform 액션과 함수 배열을 해시맵으로 생성 후 액션명을 맵의 키로설정 하여 해당 키로 함수 정의
 for i in "${!JOBS_ACTION[@]}"; do func_list[i]="func_${num_sfx}"; num_sfx=$((num_sfx+1)); done ;
 value_list=(${func_list[@]}) ; 
 
 declare -A action_funcmap; declare -A env_map; 
-let KEY_EXPR=$(expr ${#JOBS_ACTION[@]} - 1)
-let VALUE_EXPR=$(expr ${#func_list[@]} - 1)
+let KEY_EXPR=$(expr ${#JOBS_ACTION[@]} - 1) ; let VALUE_EXPR=$(expr ${#func_list[@]} - 1) ;
 
 jobmap_func() { mapKEY=$1 ; mapVLU=$2 ; action_funcmap[$1]=$2 ; }
 
@@ -51,21 +60,23 @@ jobmap_func() { mapKEY=$1 ; mapVLU=$2 ; action_funcmap[$1]=$2 ; }
 || echo "NOT matched key&value LENGTH..."
 
 ##############################################################
+## ? env tfvars 데이터 파일 경로 및 백엔드설정파일 유효성 체크 및 해당 ENV init 작업 유/무 체크 (bool 값  flg 활용) 
 path_validchk()
 {
   flg=$(ls ${ENV_PATH_}/${ENV_DIR_} 2> /dev/null);
   [[ ${flg} == "" ]] && { echo "==== NOT valid ENV-PATH. Plz Check the ENV-PATH~! ===="; exit; }
   # || { echo "========= VALID ENV-PATH OK ========="; } 
 
-  flg_int=$(ls .terraform/environment 2> /dev/null);
-  [[ ${flg_int} != "" ]] && { AFTER_INIT_ENV_FLAG=true ;}
-
   bknd_flist=( $(ls ${ENV_PATH_}/${ENV_DIR_} 2> /dev/null |grep "${backndfile_kyword}" |xargs ) );
 
+  flg_int=$(ls .terraform/environment 2> /dev/null);
+  [[ ${flg_int} != "" ]] && { AFTER_INIT_ENV_FLAG=true ;}
 }
 
-prechk(){ env_wk=$(terraform workspace show); }
 ##############################################################
+## ? 현재 wksp 체크 함수설정 및 ENV 일치여부 유효성 체크
+prechk(){ env_wk=$(terraform workspace show); }
+
 env_wkchk()
 {
   path_validchk; prechk;
@@ -75,10 +86,10 @@ env_wkchk()
 }
 
 ##############################################################
-
+## ? 현재 wksp(env) 대화형 단계별 문/답 검증 및 확인 
 asking_env()
 {
-  env_files=( $(ls ${ENV_PATH_}/${ENV_DIR_} |grep '.tfvars') ) ;
+  env_files=( $(ls ${ENV_PATH_}/${ENV_DIR_} |grep "${vardata_kyword}") ) ;
   vck=( $( for i in "${env_files[@]}"; do cat ${ENV_PATH_}/${ENV_DIR_}/${i}|grep 'env'|cut -d '=' -f1| xargs ; done ) ) ;
   let k=0;
 
@@ -133,7 +144,7 @@ $( echo " !!! Using ENV(Terrform-WorkSpace) is ${env_wk} !!! " ; )
 reply-input >>>  "
     read RPLY
     # echo "### ${RPLY} ###"
-    tmp=( $(ls ${ENV_PATH_}/${ENV_DIR_}/ |grep '.tfvars'|xargs) )
+    tmp=( $(ls ${ENV_PATH_}/${ENV_DIR_}/ |grep "${vardata_kyword}"|xargs) )
 
     [[ "${RPLY}" != "" ]] && { dpy_env=$( for i in "${tmp[@]}"; do echo $(cat "${ENV_PATH_}/${ENV_DIR_}/$i"|grep "${ENV_DIR_}" |grep "${RPLY}"|cut -d '=' -f2 ) ; done ) ; } || RPLY="" ;
     dpy_env=$(echo ${dpy_env} |tr -d '"') ;
@@ -147,7 +158,8 @@ reply-input >>>  "
   || { mtch_flag=true; env_set  ; }
 
 }
-
+#####################################################################################################################
+## ? 현재 wksp(env) 변경 및 신규 설정 / 선택 활용
 env_set()
 {
   [[ "${mtch_flag}" != true ]] && { echo "### Creating OR Switching Terrform-WorkSpace as like to ENV you input. ###"; env_newSELCT ${RPLY}; }
@@ -167,8 +179,7 @@ env_newSELCT()
 }
 
 ############################################### terrform-JOB about ###############################################
-jloop(){ para_arg=( ${JOBS_ACTION[@]} ) ; for ((i=0;i<=${KEY_EXPR};i++)); do echo "${JOBS_ACTION[i]}" ; done ; }
-
+## ? 인풋액션 유효성 검증 
 act_vck()
 {
   para_arg=( ${JOBS_ACTION[@]} ) ; match=0; envchkr="${1}" ;
@@ -176,6 +187,7 @@ act_vck()
   [[ ${match} != 1 ]] && { echo "INVAILD ACTION~! BYE~! " ; exit ; }
 }
 
+jloop(){ para_arg=( ${JOBS_ACTION[@]} ) ; for ((i=0;i<=${KEY_EXPR};i++)); do echo "${JOBS_ACTION[i]}" ; done ; }
 
 ############################################################
 dojobs()
@@ -188,8 +200,9 @@ dojobs()
   $(echo "${action_funcmap[${fst_arg}]}") ${fst_arg} ${snd_arg} ${thd_arg}
 
 }
-
 ############################### terrform-ACTION func-list ###############################
+## ? 액션키에 매칭되는 함수 호출  ( 해시맵 활용 )
+
 func_1()
 {
   ### key : init , value : func_1 ### 
@@ -363,13 +376,13 @@ func_commonCMD()
 }
 
 ############# ! local ###################################
-# declare -p action_funcmap
-# declare -p env_map 
+# declare -p action_funcmap ;
+# declare -p env_map ;
 # askjob_flag=false ;
+# asking_env ;
 
 ############# ? sub-main ###################################
-# asking_env
-# [[ $# == 0 ]] && { env_wkchk; asking_job; asking_env; dojobs "${ACTION}" ; }
+## ? 코드 실행시 입력되는 인자에 따라 아래와 같이 코드 실행 ( argment 가 없는 경우 단계별 대화 문답 )
 
 ACTION=$1 ;
 [[ $# == 0 ]] && { env_wkchk; askjob_flag=true ; }
@@ -399,26 +412,7 @@ reply-action >>> "
 [[ ${ACTION} == "mv-wks" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") $2 ; exit ; } 
 [[ ${ACTION} == "del-wks" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") $2 ; exit ; } 
 [[ ${ACTION} == "state-list" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") ; exit ; } 
-[[ $# != 0 ]] && { env_wkchk; act_vck "$@" ; asking_env ; dojobs "$@"; }
 
-# asking_job()
-# {
-#   echo -n "
-# ############################################################
-# Which terrform-job do you want as below? : 
-
-# $(jloop)
-
-# ############################################################
-# If NO input & press ENTER, doing ${DEFAULT_JOB} ~!
-# reply-action >>> "
-#   read REPLY
-#   echo "========================================================"
-#   [[ "${REPLY}" == "" ]] && { selc_job="${DEFAULT_JOB}" ; echo -e "Doing DEFALT-ACTION... : ${DEFAULT_JOB}" ;} \
-#   || { selc_job="${REPLY}" ; }
-#   act_vck "${selc_job}" ; ACTION="${selc_job}" ; 
-#   [[ "${selc_job}" == "backnd-init" ]] && { bkint_flag=true; $(echo "${action_funcmap["backnd-init"]}") ; bkint_flag=false; exit ; }  
-
-# }
+[[ ${ACTION} != "" ]] && { env_wkchk; act_vck "${ACTION}" ; asking_env ; dojobs "${ACTION}"; exit ; }
 
 ########################## END #############################
