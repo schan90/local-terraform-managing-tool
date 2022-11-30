@@ -3,8 +3,8 @@
 
 #############################################################################################################################################
 #* Terraform management tools using terrform-cli ( * --  made by schan -- * )
-# VER: 1st-beta v0.8.9
-# git tag v0.8.9 / git push origin schan
+# VER: 1st-beta v0.9.5
+# git tag v0.9.5 / git push origin schan
 #  _________  _______   ________  ________  ________  ________ ________  ________  _____ ______                  ________  ___       ___     
 # |\___   ___\\  ___ \ |\   __  \|\   __  \|\   __  \|\  _____\\   __  \|\   __  \|\   _ \  _   \               |\   ____\|\  \     |\  \    
 # \|___ \  \_\ \   __/|\ \  \|\  \ \  \|\  \ \  \|\  \ \  \__/\ \  \|\  \ \  \|\  \ \  \\\__\ \  \  ____________\ \  \___|\ \  \    \ \  \   
@@ -68,6 +68,7 @@ path_validchk()
   # || { echo "========= VALID ENV-PATH OK ========="; } 
 
   bknd_flist=( $(ls ${ENV_PATH_}/${ENV_DIR_} 2> /dev/null |grep "${backndfile_kyword}" |xargs ) );
+  chk_bkkey=( $( for i in "${bknd_flist[@]}"; do cat ${ENV_PATH_}/${ENV_DIR_}/${i}|grep 'key'|cut -d '=' -f1| xargs ; done ) ) ;
 
   flg_int=$(ls .terraform/environment 2> /dev/null);
   [[ ${flg_int} != "" ]] && { AFTER_INIT_ENV_FLAG=true ;}
@@ -218,6 +219,8 @@ func_2()
   ### key : backnd-init , value : func_2 ### 
   action=$1 ; opt_arg1=$2 ; opt_arg2=$3 ; path_validchk ; 
   # echo -e "\n##### $@ ######\n"
+  path_validchk;
+  [[ ${#chk_bkkey[@]} == 0 ]] && { echo -e "\n>>>>>>>> NO valid bknd-ENV (KEY). BYE~! >>>>>>>>\n" ; exit ;}
 
   while [[ "${RPLY_BKNDF}" == "" ]]; do echo -n "
 ############## BACKEND conf-file check ##################################################
