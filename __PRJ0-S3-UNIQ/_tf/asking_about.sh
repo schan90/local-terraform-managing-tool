@@ -20,7 +20,7 @@ asking_env()
   #  declare -p env_map;
   prechk ;
   [[ ${AFTER_INIT_ENV_FLAG} == true ]] && { env_wk=$(cat .terraform/environment| xargs); echo -e "${green}WKS-INIT-INFO: DONE-INIT <${env_wk}>${reset}" ;} \
-  || { echo -e "${green}WKS-INIT-INFO: BEFORE-INIT <${env_wk}>}${reset}" ; }
+  || { echo -e "${green}WKS-INIT-INFO: BEFORE-INIT <${env_wk}>${reset}" ; }
 
   echo -en "
 ############## REFER to TFVAR-FILE-LIST ######################################
@@ -59,15 +59,15 @@ Please pick a number below to answer ~ !!!
 numlist_ask()
 {
   ask_act=$( echo "${@:1:1}" | xargs ) ;
-  [[ ${ask_act} == "ENV-SET" ]] && { data_init=$(declare -p "${@:2}"); declare -A data=${data_init#*=} ; } \
+  [[ ${ask_act} == "ENV-SET" ]] && { data_init=$(declare -p "${@:2}") ; eval "declare -A data="${data_init#*=} ; } \
   || data=( "${@:2}" ) ;
 
   SELECTION=1 ; KSELEC=0 ;
   ENTITIES=$(printf "%s\n" "${data[@]}") ;
   ENTITIES_key=( "${!data[@]}" ) ;
 
-  # echo -e "${ENTITIES_key[@]}" ;
-  # echo -e "${ENTITIES[@]}" ;
+  echo -e "${ENTITIES_key[@]}" ;
+  echo -e "${ENTITIES[@]}" ;
 
   echo -en "
 Which ${ask_act} do you want as below? : 
