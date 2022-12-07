@@ -1,5 +1,5 @@
-# TERRAFORM-MANAGING-TOOL ( _tf-tools )
-ver : beta_v0.9.8
+# Terraform-managing-deploy
+
 ===
 목적: 
 - 테라폼 각 배포환경을 workspace(env) 사용하여 분리
@@ -39,5 +39,6 @@ Test 환경 >
 #### ./_tf.sh deploy
 
 
+![terr-cli-cap0](https://user-images.githubusercontent.com/6235318/203731740-adb9642f-2d93-4767-970e-2db8c8394118.png)
 
 
