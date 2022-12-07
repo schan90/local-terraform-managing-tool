@@ -78,7 +78,7 @@ EX0 ) 사전에 정의된 S3 백엔드버킷이 없을 경우 .tfvars 에 값 �
     │   ├── _tfact_inits.sh
     │   ├── _tfact_others.sh
     │   ├── _tfact_plan+vaild.sh
-    │   ├── _tfact_state+import.s성
+    │   ├── _tfact_state+import.sh
     │   ├── _tfact_wksp.sh
     │   ├── asking_about.sh
     │   └── env_wks.sh
