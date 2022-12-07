@@ -1,5 +1,5 @@
 # TERRAFORM-MANAGING-TOOL ( _tf-tools )
-ver : beta_v0.9.8
+ver : beta_v0.9.9
 ===
 목적: 
 - terraform-cli 활용하여 각각 배포환경을 workspace(env) 사용하여 분리/구분
