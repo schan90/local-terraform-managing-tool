@@ -1,15 +1,14 @@
 .vscode/
 .DS_Store
-
-.terraform/
-terraform.tfstate.d/
-.terraform.lock.hcl
 .history/
+
+# .terraform/
+# terraform.tfstate.d/
+# .terraform.lock.hcl
+
+__PRJ0-S3-UNIQ/.terraform/
 
 _PRJ-VPC-SUBNET/.terraform/
 _PRJ-VPC-SUBNET/terraform.tfstate.d/
 _PRJ-VPC-SUBNET/.terraform.lock.hcl
 
-*/.terraform/
-# */terraform.tfstate.d/
-# */.terraform.lock.hcl
