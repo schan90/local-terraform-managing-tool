@@ -26,6 +26,10 @@ func_2()
 
   init_wsk=$(terraform workspace show);
   export TF_WORKSPACE="${init_wsk}" ; terraform init ;
+  ###################### ref. ###########################################################################
+  # - terraform workspace show, terraform workspace list, 
+  # - terraform workspace new, terraform workspace select, terraform workspace delete
+  #######################################################################################################
 }
 
 func_1()
@@ -47,7 +51,10 @@ ${blue}############## BACKEND conf-file check ####################${reset}
 # echo "*****${RPLY}*******"
 
   # terraform init -backend-config="+bknd.conf" -reconfigure
+  # backend 설정시 defailt wks 사용함, 별도로 다른 wks 사용하려면 미리 해당 wks 생성되어 있어야만 사용/변경 가능
+  terraform workspace select default ;
 
+  # backend 설정파일의 wks 값을 변수화 할수 없음으로 default 설정 후 tfvars 의 env 값으로 wks 변경함. 이후 리소스 현황을 해당 wks tfstate 에 기록
   terraform ${action} -backend-config="${ENV_PATH_}/${ENV_DIR_}/${bkndfile}" -reconfigure;
   echo -en "
 !!! ${blue}DONE BACKEND SET UP Using Default-Workspace with${reset} ${red}${bkndfile}${reset} !!!

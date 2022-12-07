@@ -66,8 +66,8 @@ numlist_ask()
   ENTITIES=$(printf "%s\n" "${data[@]}") ;
   ENTITIES_key=( "${!data[@]}" ) ;
 
-  echo -e "${ENTITIES_key[@]}" ;
-  echo -e "${ENTITIES[@]}" ;
+  # echo -e "${ENTITIES_key[@]}" ;
+  # echo -e "${ENTITIES[@]}" ;
 
   echo -en "
 Which ${ask_act} do you want as below? : 

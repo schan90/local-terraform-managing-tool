@@ -44,15 +44,31 @@ macOS 의 경우 아래 추가셋업 필요 :
 
 ```
 
-====  
- ./_tf.sh < terraform-cli cmd >
-1. terraform workspace 활용하여 tfvars 파일 상의 ENV 값 사용
-2. terrafom-cli cmd 2차 가공하여 반복작업을 줄이고 기존 명령어를 확장하여 사용
-
-
---
 ### usage-ex >
 ``` bash
+
+============================================================================================================
+ ./_tf.sh < terraform-cli cmd >
+
+1. terraform workspace 활용하여 tfvars 파일 상의 ENV 값을 사용
+ㄴ 해당 ENV 값에 따라 workspace 생성 후 해당 workspace 선택하여 tfstate 에 리소스 현황 기록
+
+2. terrafom-cli cmd 2차 가공하여 반복작업을 줄이고 기존 명령어를 확장하여 사용
+
+참고 : 
+BACKEND 설정시 defailt wks 사용함. 
+BACKEND 설정파일의 WORKSPACE 값은 변수화 할수 없음으로 default 설정 후 
+추가로 tfvars 의 env 값으로 WORKSPACE SYNC 변경 단계를 거친다.
+
+이후 해당 WORKSPACE 를 사용하여 리소스 현황을 해당환경 tfstate 에 기록함. 
+추가로 작업진행시 해당 remote s3 환경값과 동일한 WORKSPACE 를 지정하면 각 환경별로 ( WORKSPACE ) 분리하여 배포/관리 용이함.
+
+============================================================================================================
+
+다운로드 후 실행권한 부여 후 아래와 같이 실행 :
+ex> 
+chmod 755 _tf.sh 
+
 #### ./_tf.sh
  > arg 없을 경우 단계별 문답으로 수행
 

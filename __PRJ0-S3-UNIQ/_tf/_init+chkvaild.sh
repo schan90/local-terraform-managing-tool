@@ -2,7 +2,7 @@
 # which env
 
 initVR=$1 ;
-echo -e "### ${initVR} ###" ;
+echo -e "${yellow}###### ${initVR} ######${reset}" ;
 
 ####################### init for ACTION-FUNC-MAP ##########################
 ## ? terrform 액션 맵핑 함수 리스트 초기화, 함수명_일련번호 변수초기화
