@@ -10,7 +10,7 @@ aws_profile = "mz"
 ########################################
 # VPC B-class
 ########################################
-vpc_prefix             = "eks-prj2"
+vpc_prefix             = "eks-vpc-2"
 vpc_cidr_block         = "172.16.0.0/16"
 vpc_availability_zones = ["ap-northeast-2a", "ap-northeast-2b"]
 vpc_public_subnets     = ["172.16.101.0/24", "172.16.102.0/24"]

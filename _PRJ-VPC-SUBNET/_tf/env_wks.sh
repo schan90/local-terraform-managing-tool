@@ -8,7 +8,7 @@
 env_set()
 {
   chENVWK=$1;
-  [[ "${mtch_flag}" != true ]] && { echo -e "${yellow}### Creating OR Switching Terrform-WorkSpace as like to ENV you input. ###${reset}"; }
+  [[ "${mtch_flag}" != true ]] && { echo -e "${yellow}### Creating & Switching Terrform-WorkSpace as like to ENV you input. ###${reset}"; }
   
   ###################### ref. ###########################################################################
   # - terraform workspace show, terraform workspace list, 

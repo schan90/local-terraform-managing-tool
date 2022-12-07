@@ -28,9 +28,9 @@
 #   - amazon-linux2 
 #
 ##################################################################################################################################################################################################################################################################################################
-# git tag v0.9.9 / git push origin schan / master ( git config --local user.name "schan90" / git config --local user.email "qnas90@gmail.com" )
+# git tag v0.9.8 / git push origin schan / master ( git config --local user.name "schan90" / git config --local user.email "qnas90@gmail.com" )
 # git pull both HEAD / git push both HEAD  
-tfmg_ver="beta_v0.9.9"
+tfmg_ver="beta_v0.9.8"
 
 ## ? tfvars 데이터파일 경로 및 grep 키워드 초기화 
 ENV_PATH_="." ; ENV_DIR_="env" ; vardata_kyword=".tfvars" ; backndfile_kyword=".hcl" ;
