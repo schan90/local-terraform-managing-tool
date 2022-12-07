@@ -93,27 +93,27 @@ EX0 ) 사전에 정의된 S3 백엔드버킷이 없을 경우 .tfvars 에 값 �
 
 EX1 ) 사전에 정의된 S3 백엔드버킷이 존재할 경우 *bknd.hcl 에 값설정 후 테스트
 
-├── _PRJ-VPC-SUBNET ( 테라폼 VPC,SUBNET 셋업예제 )
-│   ├── _tf ( tf-tool 모듈 )
-│   │   ├── _init+chkvaild.sh
-│   │   ├── _tfact_apply+destory.sh
-│   │   ├── _tfact_inits.sh
-│   │   ├── _tfact_others.sh
-│   │   ├── _tfact_plan+vaild.sh
-│   │   ├── _tfact_state+import.sh
-│   │   ├── _tfact_wksp.sh
-│   │   ├── asking_about.sh
-│   │   └── env_wks.s트
-│   ├── _tf.sh ( tf-tool 실행스크립트 )
-│   ├── env ( tfvars 데이터파일 및 backend 설정파일 )
-│   │   ├── +mz-dev-vpc-value.tfvars
-│   │   ├── +mz-qa-vpc-value.tfvars
-│   │   ├── _mz-dev-s3-bknd.hcl
-│   │   └── _mz-qa-s3-bknd.hc트
-│   ├── main.tf
-│   ├── outputs.tf
-│   ├── terra-conf.tf
-│   └── var-local.tf
+_PRJ-VPC-SUBNET ( 테라폼 VPC,SUBNET 셋업예제 )
+├── _tf ( tf-tool 모듈 )
+│   ├── _init+chkvaild.sh
+│   ├── _tfact_apply+destory.sh
+│   ├── _tfact_inits.sh
+│   ├── _tfact_others.sh
+│   ├── _tfact_plan+vaild.sh
+│   ├── _tfact_state+import.sh
+│   ├── _tfact_wksp.sh
+│   ├── asking_about.sh
+│   └── env_wks.s트
+├── _tf.sh ( tf-tool 실행스크립트 )
+├── env ( tfvars 데이터파일 및 backend 설정파일 )
+│   ├── +mz-dev-vpc-value.tfvars
+│   ├── +mz-qa-vpc-value.tfvars
+│   ├── _mz-dev-s3-bknd.hcl
+│   └── _mz-qa-s3-bknd.hc트
+├── main.tf
+├── outputs.tf
+├── terra-conf.tf
+└── var-local.tf
 
 
 ```
