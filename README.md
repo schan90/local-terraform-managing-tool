@@ -6,7 +6,7 @@ ver : beta_v0.9.9x
 - 검증 로직을 커스터마이징 또는 컨벤션 정의하여 일관성/통일성 유지, 관리 효율성 증대
 - 추후 terragrunt 및 기타 cli 커맨드 2차 가공하여 편의성 증대 및 휴먼에러 방지
 
-## Release-history :
+## RELEASE-HISTORY :
 
 ```
 beta_V0.9.9x: 
