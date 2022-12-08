@@ -61,7 +61,7 @@ BACKEND 설정파일의 WORKSPACE 값은 변수화 할수 없음으로 default �
 추가로 tfvars 의 env 값으로 WORKSPACE SYNC 변경 단계를 거친다.
 
 이후 해당 WORKSPACE 를 사용하여 리소스 현황을 해당환경 tfstate 에 기록함. 
-추가작업시 각 remote s3 환경값과 동일한 WORKSPACE 를 지정 후 각각의 S3 tfstate 를( WORKSPACE ) 구분하여 배포/관리 용이.
+추가작업시 각 remote s3 환경값과 동일한 WORKSPACE 를 지정 후 각각의 S3 tfstate 를( WORKSPACE ) 구분하여 배포/관리
 
 =======================================================================================
 
