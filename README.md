@@ -76,12 +76,13 @@ prompt-ex ❯ env | grep -i 'prof'
 AWS_PROFILE=mz
 
 ##################################################################
+셋업 예시 ( 아래 예시를 참고하여 각자 환경에 맞게 케스터마이징 하여 셋업 )
 1. provider "aws" 내, 해당 환경변수 key 를 읽을 수 있도록 아래와 같이 설정
 2. tf 파일 내, aws_profile 변수를 아래와 같이 설정
 3. tfvars 내, aws_profile data 값을 아래와 같이 설정
 
 ########################################
-#1 provider "aws"setting
+#ex1) provider "aws"setting
 ########################################
 provider "aws" {
   profile = var.aws_profile
@@ -90,7 +91,7 @@ provider "aws" {
 ....
 
 ########################################
-#2 tf variable setting
+#ex2) tf variable setting
 ########################################
 variable "env" { type = string }
 variable "aws_profile" { type = string }
@@ -98,7 +99,7 @@ variable "aws_region" { type = string }
 ...
 
 ########################################
-#3 tfvars data setting
+#ex3) tfvars data setting
 ########################################
 env         = "mz-qa-prj2"
 aws_region  = "ap-northeast-2"
