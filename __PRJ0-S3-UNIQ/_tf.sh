@@ -71,7 +71,7 @@ dojobs()
 
 func_commonCMD()
 {
-  echo " #### $@ #######"
+  # echo " #### $@ #######"
 
   action=$1 ; opt_arg1=$2 ; opt_arg2=$3 ; envfile="" ; tfvarchk_flag=false ;
   # echo -e "\n##### $@ ######\n"

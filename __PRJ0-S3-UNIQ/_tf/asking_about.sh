@@ -14,6 +14,9 @@ asking_env()
   env_values=( $( for i in "${env_files[@]}"; do cat ${ENV_PATH_}/${ENV_DIR_}/${i}|grep 'env'|cut -d '=' -f2| xargs ; done ) ) ;
 
   let ENVF_EXPR=$(expr ${#env_files[@]} - 1); let ENVV_EXPR=$(expr ${#env_values[@]} - 1)
+  echo "#########${env_files[@]}##########"
+  echo "#########${env_values[@]}##########"
+
   [[ ${ENVF_EXPR} -eq ${ENVV_EXPR} ]] && { for i in $(seq 0 ${ENVV_EXPR}); do env_map[${env_files[i]}]=${env_values[i]}; done; } \
   || { echo -e "\nkey&value LENGTH or MATCHING error; BYE~" ; return 0 ;} 
   # echo ${env_values[@]} ; echo ${env_files[@]}

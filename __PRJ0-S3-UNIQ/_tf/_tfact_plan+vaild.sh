@@ -7,7 +7,7 @@
 func_3()
 {
   ### key : plan , value : func_3 ### 
-  echo " #### $@ #######"
+  # echo " #### $@ #######"
   func_commonCMD $1 $2 $3
 }
 
