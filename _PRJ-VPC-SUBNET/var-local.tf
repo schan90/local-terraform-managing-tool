@@ -14,16 +14,32 @@ locals {
 
 }
 
+###################
+data "terraform_remote_state" "s3" {
+
+  backend = "s3"
+  config = {
+    bucket = var.bucket
+    key    = "env://${var.env}/${var.key}" 
+    region = var.aws_region
+  }
+}
+
 #######################
 variable "env" { type = string }
 variable "aws_profile" { type = string }
 variable "aws_region" { type = string }
 variable "vpc_prefix" { type = string }
 
+variable "bucket" { type = string }
+variable "key" { type = string }
+
 ###################
 
 # VPC Name
 # variable "vpc_name" { type = string }
+
+# variable "vpc_id" { type        = string }
 
 # VPC CIDR Block
 variable "vpc_cidr_block" { type = string }
