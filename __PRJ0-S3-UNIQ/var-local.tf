@@ -1,7 +1,7 @@
 locals {
   region      = var.aws_region
-  bucket_name = "${var.env}-${var.s3_bucketprefix}-"
-
+  # bucket_name = "${var.env}-${var.s3_bucketprefix}-"
+  bucket_name = format("%s-%s-", var.env, var.s3_bucketprefix)
   table_name = join("-", [var.env, var.dy_tablename, random_string.suffix_num.result])
 }
 

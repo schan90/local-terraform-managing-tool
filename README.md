@@ -66,7 +66,7 @@ macOS 의 경우 아래 추가셋업 필요 :
 2. terrafom-cli cmd 2차 가공하여 반복작업을 줄이고 기존 명령어를 확장하여 사용
 
 참고 : 
-BACKEND 설정시 defailt wks 사용함. 
+BACKEND 설정시 default wks 사용함. 
 BACKEND 설정파일의 WORKSPACE 값은 변수화 할수 없음으로 default 설정 후 
 추가로 tfvars 의 env 값으로 WORKSPACE SYNC 변경 단계를 거친다.
 
@@ -111,7 +111,7 @@ variable "aws_region" { type = string }
 ########################################
 #ex3) tfvars data setting
 ########################################
-env         = "mz-qa-prj2"
+env         = "mz-qa-prj"
 aws_region  = "ap-northeast-2"
 aws_profile = "mz"
 ...
@@ -127,8 +127,7 @@ aws_profile = "mz"
 #### ./_tf.sh deploy
 
 테스트 시나리오 > 
-EX0 & EX1 ;
-EX1 ;
+EX0 -> EX1 ;
 
 EX0 ) 사전에 정의된 S3 백엔드버킷이 없을 경우 .tfvars 에 값 설정 후, 백엔드버킷 생성 후 EX1 예제로 테스트 수행
     __PRJ0-S3-UNIQ ( 테라폼 S3 셋업예제 )
@@ -148,14 +147,14 @@ EX0 ) 사전에 정의된 S3 백엔드버킷이 없을 경우 .tfvars 에 값 �
     │   └── env_wks.sh
     ├── _tf.sh ( tf-tool 실행스크립트 )
     ├── env
-    │   ├── +mz-dev-s3-value.tfvars (본인 테스트환경에 맞게 data 커스터마이징)
-    │   ├── +mz-qa-s3-value.tfvars (본인 테스트환경에 맞게 data 커스터마이징)
+    │   ├── ++mz-multi-env-s3.tfvars ( S3 하위 dev/stg/prd 멀티 ENV 셋업용도의 버킷 1개 생성 )
+    │   
     ├── main.tf
     ├── outputs.tf
     ├── terra-conf.tf
     └── var-local.tf
 
-EX1 ) 사전에 정의된 S3 백엔드버킷이 존재할 경우 *bknd.hcl 에 값설정 후 테스트
+EX1 ) ex0 에서 생성한 백엔드 정보로 *bknd.hcl 에 값설정 후 테스트
 
 _PRJ-VPC-SUBNET ( 테라폼 VPC,SUBNET 셋업예제 )
 ├── _tf ( tf-tool 모듈 )
@@ -185,6 +184,7 @@ _PRJ-VPC-SUBNET ( 테라폼 VPC,SUBNET 셋업예제 )
 ![tf-tool-cap1](https://user-images.githubusercontent.com/6235318/206122412-b483ce5f-3384-44fb-8b91-42129b7dea64.png)
 ![tf-tool-cap2](https://user-images.githubusercontent.com/6235318/206122525-35530fa3-5d0b-4175-9a49-5714278f6644.png)
 ![tf-tool-cap4](https://user-images.githubusercontent.com/6235318/206123724-5f73f9ec-c74c-4e9a-9b72-8d3fca324101.png)
+![s3-multi-env](./s3-multi-env-2.png)
 
 
 

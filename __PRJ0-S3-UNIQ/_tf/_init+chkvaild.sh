@@ -49,7 +49,9 @@ env_wkchk()
 {
   path_validchk; prechk;
 
-  [[ ${env_wk} == "default" ]] && { echo -e "\n${yellow}MAKING NEW-WKSP OR SWITCHING-WKSP as the same as ENV from tfvars-file ${reset}" ; } \
+  # [[ ${env_wk} == "default" ]] && { echo -e "\n${yellow}MAKING NEW-WKSP OR SWITCHING-WKSP as the same as ENV from tfvars-file ${reset}" ; } \
+  # || { ENV_WKS=${env_wk}; echo -e "\n${yellow}This ENV(Terrform-WorkSpace) is ${env_wk}${reset}" ; }
+  [[ ${env_wk} == "default" ]] && { echo -e "\n${yellow}This is DEFAULT-WKS. Only using DEFALT if making S3-MULTI-ENV-BUCKET ${reset}" ; } \
   || { ENV_WKS=${env_wk}; echo -e "\n${yellow}This ENV(Terrform-WorkSpace) is ${env_wk}${reset}" ; }
 }
 

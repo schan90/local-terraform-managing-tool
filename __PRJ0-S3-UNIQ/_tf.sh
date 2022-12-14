@@ -28,9 +28,9 @@
 #   - amazon-linux2 
 #
 ##################################################################################################################################################################################################################################################################################################
-# git tag v0.9.92 / git push origin schan / master ( git config --local user.name "schan90" / git config --local user.email "qnas90@gmail.com" )
+# git tag v0.9.93 / git push origin schan / master ( git config --local user.name "schan90" / git config --local user.email "qnas90@gmail.com" )
 # git pull both HEAD / git push both HEAD  
-tfmg_ver="beta_v0.9.92"
+tfmg_ver="beta_v0.9.93"
 
 ## ? tfvars 데이터파일 경로 및 grep 키워드 초기화 
 ENV_PATH_="." ; ENV_DIR_="env" ; vardata_kyword=".tfvars" ; backndfile_kyword=".hcl" ;
@@ -71,16 +71,21 @@ dojobs()
 
 func_commonCMD()
 {
+  echo " #### $@ #######"
+
   action=$1 ; opt_arg1=$2 ; opt_arg2=$3 ; envfile="" ; tfvarchk_flag=false ;
   # echo -e "\n##### $@ ######\n"
   for key in "${!env_map[@]}"; do [[ ${env_map[${key}]} == ${ENV_WKS} ]] && { envfile=${key} ; tfvarchk_flag=true ; } ; done
 
   if [[ ${action} == "plan" ]]; then 
     [[ ${tfvarchk_flag} == true ]] && { terraform ${action} --var-file="${ENV_PATH_}/${ENV_DIR_}/${envfile}" ;} || { echo "VALID-ERR" ; exit ;}
+  # elif [[ ${action} == "plan" && ${tfvarchk_flag} == true && ${opt_arg1} != ""  ]]; then 
+  #   terraform ${action} ${opt_arg1} --var-file="${ENV_PATH_}/${ENV_DIR_}/${envfile}" -auto-approve ;
   else
     [[ ${tfvarchk_flag} == true ]] && { terraform ${action} --var-file="${ENV_PATH_}/${ENV_DIR_}/${envfile}" -auto-approve ;} || { echo "VALID-ERR" ; exit ;}
   fi
 
+  action="" ; opt_arg1="" ; opt_arg2="" ;
 }
 
 # declare -p action_funcmap ;
@@ -107,7 +112,7 @@ ACTION_opt2=$(echo "${@:3}"|cut -d ' ' -f1)
 [[ ${ACTION} == "del-wks" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") $2 ; exit ; } 
 [[ ${ACTION} == "state-list" ]] && { prechk; $(echo "${action_funcmap[${ACTION}]}") ; exit ; } 
 
-[[ ${ACTION} != "" ]] && { act_vck "${ACTION}" ; env_wkchk ; asking_env ; dojobs "${ACTION}"; exit ; }
+[[ ${ACTION} != "" ]] && { act_vck "${ACTION}" ; env_wkchk ; asking_env ; dojobs "${ACTION}" "${ACTION_opt1}" "${ACTION_opt2}" ; exit ; }
 
 ########################## END #############################
 

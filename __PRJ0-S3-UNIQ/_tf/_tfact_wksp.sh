@@ -13,7 +13,7 @@ func_7()
   newwk=$1
   [[ "${newwk}" != "" ]] && { terraform workspace new ${newwk} ;  }
 
-  while [[ "${newwk}" == "" ]]; do echo -en "
+  while [[ "${newwk}" == "" ]]; do echo -e "
 ############## NEW Terrform WORKSPACE ########################################
 ${red}Tell me the new Terrform WORKSPACE you want ~!  : ${reset}
 
@@ -37,7 +37,7 @@ func_8()
   mvwk=$1
   [[ "${mvwk}" != "" ]] && { terraform workspace select ${mvwk} ;  }
 
-  while [[ "${mvwk}" == "" ]]; do echo -n "
+  while [[ "${mvwk}" == "" ]]; do echo -e "
 ############## Switching Terrform WORKSPACE ##################################
 ${red}Tell me the Terrform WORKSPACE to Switch ~!  : ${reset}
 
@@ -61,7 +61,7 @@ func_9()
   delwk=$1
   [[ "${delwk}" != "" ]] && { terraform workspace delete ${delwk} ;  }
 
-  while [[ "${delwk}" == "" ]]; do echo -n "
+  while [[ "${delwk}" == "" ]]; do echo -e "
 ############## Terrform WORKSPACE to DELETE ##################################
 ${red}Tell me the Terrform WORKSPACE to Delete ~!  : ${reset}
 

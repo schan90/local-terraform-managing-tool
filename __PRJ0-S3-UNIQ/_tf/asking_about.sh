@@ -50,7 +50,7 @@ Please pick a number below to answer ~ !!!
   # echo "****** ${RPLY} : ${ENV_WKS} ******" ;
 
   prechk;
-  [[ "${RPLY}" == "default" ]] && { echo -e "\n>>>>>>>>>> Can't Using DEFAULT Terrform-WorkSpace >>>>>>>>>>\n"; exit ;  }
+  # [[ "${RPLY}" == "default" ]] && { echo -e "\n>>>>>>>>>> Can't Using DEFAULT Terrform-WorkSpace >>>>>>>>>>\n"; exit ;  }
   [[ "${RPLY}" != "${env_wk}" ]] && { echo -e "\n${yellow}>>> Not SAME the ENV with Terrform-WorkSpace. Making & Switching to ${ENV_WKS} >>>${reset}\n"; mtch_flag=false; env_set ${ENV_WKS} ;  } \
   || { mtch_flag=true; env_set ${ENV_WKS}  ; }
 }
