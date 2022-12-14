@@ -36,7 +36,7 @@ tfmg_ver="beta_v0.9.93"
 ENV_PATH_="." ; ENV_DIR_="env" ; vardata_kyword=".tfvars" ; backndfile_kyword=".hcl" ;
 
 ## ? terrform 액션 리스트 정의 및 디폴트 액션 설정 
-JOBS_ACTION=( "backnd-init" "init" "plan" "validate" "apply" "destroy" "new-wks" "mv-wks" "del-wks" "state-list" "import" "other" )
+JOBS_ACTION=( "backnd-init" "init" "plan" "validate" "apply" "destroy" "new-wks" "mv-wks" "del-wks" "state-list" "state-show" "import" "other" )
 DEFAULT_JOB=${JOBS_ACTION[1]} ; key_list=(${JOBS_ACTION[@]}) ;
 
 # ? ansi color code; cmd 차일드 프로세스에서 사용할 컬러 하이라이팅 코드 값 export 처리

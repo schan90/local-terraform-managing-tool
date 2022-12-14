@@ -24,4 +24,4 @@ vpc_create_database_subnet_route_table = true
 
 
 bucket = "s3-remote-multi-tf-20221214083002631600000001"
-key        = "terra.tfstate"
+key    = "terra.tfstate"

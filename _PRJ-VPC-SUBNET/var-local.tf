@@ -20,7 +20,7 @@ data "terraform_remote_state" "s3" {
   backend = "s3"
   config = {
     bucket = var.bucket
-    key    = "env://${var.env}/${var.key}" 
+    key    = "env://${var.env}/${var.key}"
     region = var.aws_region
   }
 }

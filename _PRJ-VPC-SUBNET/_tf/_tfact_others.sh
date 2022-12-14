@@ -6,9 +6,9 @@
 ###################################################################
 
 
-func_12()
+func_13()
 {
-  ### key : other , value : func_12 ### 
+  ### key : other , value : func_13 ### 
   echo " Not Defined this ACTION YET~. BYE~ "; exit;
 }
 
