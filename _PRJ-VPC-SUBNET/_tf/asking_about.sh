@@ -79,7 +79,7 @@ Which ${ask_act} do you want as below? :
   numlist_ask.prnt()
   {
     while read -r line; do
-      echo -e "${red}$SELECTION)${reset} ${green}${line}${reset}"
+      echo -e "${red}$SELECTION)${reset} ${purple}${line}${reset}"
       ((SELECTION++))
     done <<< "$ENTITIES"
     ((SELECTION--)) ;
@@ -87,7 +87,7 @@ Which ${ask_act} do you want as below? :
   numlist_ask.prnt2()
   {
     while read -r line; do
-      echo -e "${red}$SELECTION)${reset} ENV-WKS: ${green}${line}${reset} (from ${ENTITIES_key[${KSELEC}]} FILE)"
+      echo -e "${red}$SELECTION)${reset} ENV-WKS: ${purple}${line}${reset} (from ${ENTITIES_key[${KSELEC}]} FILE)"
       ((SELECTION++)) ; ((KSELEC++)) ;
     done <<< "${ENTITIES}"
     ((SELECTION--)) ; ((KSELEC--)) ;

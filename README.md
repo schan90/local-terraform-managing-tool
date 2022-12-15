@@ -178,13 +178,26 @@ _PRJ-VPC-SUBNET ( 테라폼 VPC,SUBNET 셋업예제 )
 ├── terra-conf.tf
 └── var-local.tf
 
+###
+...
+data "terraform_remote_state" "s3" {
+
+  backend = "s3"
+  config = {
+    bucket = var.bucket
+    key    = "env://${var.env}/${var.key}"
+    region = var.aws_region
+  }
+}
+...
 
 ```
+![s3-multi-env](./s3-multi-env-2.png)
 
 ![tf-tool-cap1](https://user-images.githubusercontent.com/6235318/206122412-b483ce5f-3384-44fb-8b91-42129b7dea64.png)
 ![tf-tool-cap2](https://user-images.githubusercontent.com/6235318/206122525-35530fa3-5d0b-4175-9a49-5714278f6644.png)
 ![tf-tool-cap4](https://user-images.githubusercontent.com/6235318/206123724-5f73f9ec-c74c-4e9a-9b72-8d3fca324101.png)
-![s3-multi-env](./s3-multi-env-2.png)
+
 
 
 
